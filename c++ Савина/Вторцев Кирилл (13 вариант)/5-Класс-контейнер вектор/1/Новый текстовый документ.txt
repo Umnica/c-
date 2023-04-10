@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    vector <int> iVec;
+    int x, n;
+    cout << "n=";
+    cin >> n;
+    // Ввод элементов вектора iVec ч/з push_back()
+    for (int i = 0; i < n; i++) {
+        cout << "a[" << i << "]=" << endl;
+        cin >> x;
+        iVec.push_back(x);
+    }
+    // Итератору iterMax присваиваем максимальное значение вектора iVec
+    // в диапозоне от начало до конца
+    vector <int>::iterator iterMax = max_element(iVec.begin(), iVec.end());
+    // Заменяем все элементы вектора iVec ф-ей replace() на ноль
+    // в диапозоне от начало до конца
+    replace(iVec.begin(), iVec.end(),*iterMax, 0);
+    // Выводим полученный вектор
+    for (int i = 0; i < n; i++) {
+        cout << iVec[i] << endl;
+    }
+    return 0;
+}
+

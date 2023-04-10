@@ -1,0 +1,13 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string str;
+    cout << "\n\nEnter number: ";
+    cin >> str;
+    long long sum = 0;
+    for (int i = 0; i < str.length(); ++i)
+        sum += str[i] - '0';
+    cout << "\n\nResult: " << sum << endl;
+    return 0;
+}

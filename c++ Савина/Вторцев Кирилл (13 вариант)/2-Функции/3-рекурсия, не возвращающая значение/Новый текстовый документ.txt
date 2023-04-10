@@ -1,0 +1,31 @@
+/*дано натуральное число n. Разработаь рекурсивную функцию для вывода на экран следющей картинки
+   1
+  222
+ 33333
+  ...
+ 33333
+  222
+   1
+  */
+#include <iostream>
+using namespace std;
+void f(int max_n, int n = 1, int digit = 1) {
+    if (n > max_n) return;
+    for (int i = 0; i < (max_n - n + 1) / 2; i++)
+        cout << " ";
+    for (int i = 0; i < n; i++)
+        cout << digit;
+    cout << endl;
+    if (n + 2 > max_n) return;
+    f(max_n, n + 2, digit + 1);
+    for (int i = 0; i < (max_n - n + 1) / 2; i++)
+        cout << " ";
+    for (int i = 0; i < n; i++)
+        cout << digit;
+    cout << endl;
+}
+
+int main(){
+    f(9);
+    return 0;
+}

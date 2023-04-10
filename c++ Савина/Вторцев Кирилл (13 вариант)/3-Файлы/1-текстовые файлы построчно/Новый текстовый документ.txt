@@ -1,0 +1,22 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+using namespace std;
+int main() {
+    int n;
+    string strLine;
+    ifstream in("input.txt");
+    cout << "Enter number" << endl;
+    cin >> n;
+    if (in.is_open()){
+        while (!in.eof()){
+            getline(in, strLine);
+            if (strLine.size() < n)
+                cout << strLine << endl;
+            }
+            in.close();
+        }
+    else cout << "I can't open the file" << endl;
+    return 0;
+}

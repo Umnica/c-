@@ -1,0 +1,43 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main() {
+	// Число вещественных чисел
+	int n;
+	cout << "Enter n: ";
+	cin >> n;
+
+	// Открываем выходной поток out
+	ofstream out("data.dat", ios::binary);
+
+	// Записываем данные в двоичный файл
+	double* a = new double[n];
+	for (int i = 0; i < n; i++) {
+		//	double j = 0.1; j += 0.1;
+		a[i] = (rand() % 100 - 50) + (double)(rand() % 10 + 1) / 100;
+		out.write((char*)&a[i], sizeof(a[i]));
+		cout << a[i] << endl;
+	}
+
+	delete[] a;
+	out.close();
+	cout << endl;
+
+	// Открываем двоичный файл
+	ifstream in("data.dat", ios::binary);
+	double word;
+	double sum = 0;
+	while (in.read((char*)&word, sizeof(word))) {
+		if (word > 0) {
+			sum += word;
+		}
+	}
+	in.close();
+
+	// Выводим сумму
+	cout << "Sum= " << sum << endl;
+
+	return 0;
+}

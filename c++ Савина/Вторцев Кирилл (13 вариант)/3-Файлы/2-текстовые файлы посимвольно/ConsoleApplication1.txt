@@ -1,0 +1,47 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	// Входной поток in
+	ifstream in("in_data.txt");
+
+	// Выходной поток out
+	ofstream out("out_data.txt");
+
+	// Компонента из файла
+	string word;
+
+	// Помещаем все компоненты из файла "in_data.txt" в массив a
+	int Count;
+	getline(in, word);
+	Count = stoi(word);
+	int* a = new int[Count];
+	for (int i = 0; i < Count; i++) {
+		in >> word;
+		a[i] = stoi(word);
+	}
+
+	// Закрываем входной поток in
+	in.close();
+	// Вывод компонент в файл "out_data.txt" из массива a
+	// Проходим по массиву 2 раза
+	// В начале с условием что < 0 затем >= 0
+	for (int i = 0; i < Count; i++) {
+		if (a[i] < 0) {
+			out << a[i] << "\t";
+		}
+	}
+	for (int i = 0; i < Count; i++) {
+		if (a[i] >= 0) {
+			out << a[i] << "\t";
+		}
+	}
+
+	delete[] a;
+	// Закрываем выходной поток out 
+	out.close();
+	return 0;
+}

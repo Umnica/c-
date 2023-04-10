@@ -1,0 +1,106 @@
+/*Практикум 2. Задание 1. 
+1. Создать абстрактный класс figure с функциями вычисления площади и периметра, 
+а также функцией, выводящей информацию о фигуре на экран.
+2. Создать производные классы: Rectangle (прямоугольники), Circle (круг),
+Triangle (треугольник).
+3. Создать массив n фигур и вывести на экран полную информацию о фигурах на экран.*/
+#include <iostream>
+
+using namespace std;
+
+class figure {
+public:
+	virtual void print()=0;
+	virtual double square()=0;
+	virtual double perimeter()=0;
+};
+class Rectangle: public figure {
+protected:
+	int a, b;
+public:
+	Rectangle() {
+		a = 1;
+		b = 1;
+	}
+	Rectangle(int a1, int b1) {
+		a = a1;
+		b = b1;
+	}
+	void print() {
+		cout << "Rectangle" << endl;
+		cout << "a = " << a << endl;
+		cout << "b = " << b << endl;
+	}
+	double square() {
+		return (double)(a) * (double)(b);
+	}
+	double perimeter() {
+		double s = (double)(a) + (double)(b);
+		return s * 2;
+	}
+};
+class Triangle : public figure {
+protected:
+	int a, b, c;
+public:
+	Triangle() {
+		a = 1;
+		b = 1;
+		c = 1;
+	}
+	Triangle(int a1, int b1, int c1) {
+		a = a1;
+		b = b1;
+		c = c1;
+	}
+	void print() {
+		cout << "Triangle" << endl;
+		cout << "a = " << a << endl;
+		cout << "b = " << b << endl;
+		cout << "c = " << b << endl;
+	}
+	double square() {
+		double p = (a + b + c) / 2;
+		return sqrt((double)(p * (p - a) * (p - b) * (p - c)));
+	}
+	double perimeter() {
+		return (double)(a) + (double)(b) + (double)(c);
+	}
+};
+class Circle : public figure {
+protected:
+	int r;
+public:
+	Circle() {
+		r = 1;
+	}
+	Circle(int r1) {
+		r = r1;
+	}
+	void print() {
+		cout << "Circle" << endl;
+		cout << "Radius = " << r << endl;
+	}
+	double square() {
+		return 3.14 * pow((double)(r), 2);
+	}
+	double perimeter() {
+		return 2*3.14*(double)(r);
+	}
+};
+int main(){
+	figure* figure[3];
+	figure[0] = new Rectangle(5, 10);
+	figure[1] = new Triangle(3, 4, 5);
+	figure[2] = new Circle(3);
+	for (int i = 0; i < 3; i++) {
+
+		figure[i]->print();
+		cout << "Square" << endl;
+		cout << figure[i]->square() << endl;
+		cout << "Perimeter" << endl;
+		cout << figure[i]->perimeter() << endl;
+		cout << endl;
+	}
+	return 0;
+}

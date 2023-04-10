@@ -1,0 +1,103 @@
+/*Практикум 1. Задание 1. Создать класс Triangle, содержащий следующие члены класса:
+1. Поля:
+	int a,b,c
+2. Функции, позволяющие:
+	+вывести на экран информацию о треугольнике;
+	+рассчитать периметр треугольника;
+	+рассчитать площадь треугольника;
+	+установить длины сторон треугольника;
+	+установить, существует ли треугольник с данными сторон.
+	Кроме того, необходимо реализовать перегрузку:
+	операции ++(--): одновременно увеличивает (уменьшает) значение поле
+	a,b и c на 1
+	операции *: умножает поля a,b и c на заданный скаляр*/
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+class triangle {
+	// Поля
+	int a, b, c;
+public:
+	// Треугольник по умолчанию
+	triangle() {
+		a = 1;
+		b = 1;
+		c = 1;
+	}
+
+	// Установить длины сторон треугольника
+	triangle(int a1, int b1, int c1) {
+		a = a1;
+		b = b1;
+		c = c1;
+	}
+
+	// Вывести на экран информацию о треугольнике;
+	void print();
+
+	// Рассчитать периметр треугольника;
+	int perimetr();
+	// Рассчитать площадь треугольника;
+	double square();
+	// Установить, существует ли треугольник с данными сторон.
+	bool exist();
+	// Перегрузка
+	triangle operator++() {
+		return triangle(++a, ++b, ++c);
+	};
+	triangle operator--() {
+		return triangle(--a, --b, --c);
+	};
+	triangle operator*(int scalar) {
+		return triangle(a * scalar, b * scalar, c * scalar);
+	};
+};
+
+void triangle::print() {
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
+	cout << "c = " << c << endl;
+}
+int triangle::perimetr() {
+	return a + b + c;
+}
+bool triangle::exist() {
+	if (a < b + c && b < a + c && c < b + a)
+		return true;
+	else 
+		return false;
+}
+double triangle::square() {
+	double p = perimetr();
+	return sqrt(p * (p - a) * (p - b) * (p - c));
+}
+
+int main() {
+	triangle a;
+	cout << "a" << endl;
+		a.print();
+	if (a.exist() == true) {
+		cout << "exist " << a.exist() << endl;
+		cout << "perimetr " << a.perimetr() << endl;
+		cout << "square " << a.square() << endl;	
+	}
+	else {
+		cout << "exist" << endl;
+		a.exist();
+	}
+
+	triangle a1;
+	cout << "a1" << endl;
+	--a1;
+	a1.print();
+
+	triangle a2;
+	cout << "a2" << endl;
+	a2 = a2 * 3;
+	a2.print();
+
+	return 0;
+}
+

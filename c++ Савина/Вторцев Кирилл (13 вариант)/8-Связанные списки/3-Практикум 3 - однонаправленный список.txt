@@ -1,0 +1,65 @@
+/*Практикум 3. Задание 1. Со стеком.
+Создать очередь из слов, в который все слова исходного
+текста входят только один раз.*/
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <list>
+#include <vector>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+int main() {
+    // Создаем список класса string 
+    // для ввода и удаления повторяющихся слов из файла 
+    vector <string> words;
+
+    // Создаем очередь класса string
+    list <string> List;
+
+    // Открываем входной поток in
+    ifstream in("input.txt");
+    string word;
+
+    // Проверяем открался ли файл
+    if (in.is_open()) {
+        // Пока не прочитан маркер конца файла
+        while (!in.eof()) {
+            in >> word;
+            // Кладем в конец вектора слово
+            words.push_back(word);
+        }
+        cout << endl;
+        // Закрываем входной поток in
+        in.close();
+
+        // Вывод вектора
+        copy(words.begin(), words.end(), ostream_iterator<string>(cout, " "));
+        cout << endl;
+
+        // Удаляем из вектора повторяющиеся элементы
+        for (int i = 0; i < words.size();) {
+            if (find(words.begin(), words.begin() + i, words[i]) != words.begin() + i)
+                words.erase(words.begin() + i);
+            else
+                i++;
+        }
+
+        // Вывод вектора
+        copy(words.begin(), words.end(), ostream_iterator<string>(cout, " "));
+        cout << endl;
+        // Ввод в очередь List слов из вектора words
+        for (int i = 0; i < words.size(); i++) {
+            List.push_back(words[i]);
+        }
+        // Открываем выходной поток out
+        ofstream out("output.txt");
+        // Пока стек не пуст
+        copy(List.begin(), List.end(), ostream_iterator<string>(out, " "));
+    }
+    else
+        cout << "I can't open the file" << endl;
+    return 0;
+}

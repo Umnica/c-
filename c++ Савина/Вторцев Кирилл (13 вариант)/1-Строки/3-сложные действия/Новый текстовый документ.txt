@@ -1,0 +1,21 @@
+/*после каждого заданного слова в сообщении
+поставить восклицательный знак*/
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+int main() {
+    string str, word;
+    cout << "\n\nEnter string: ";
+    getline(cin, str);
+    getline(cin, word);
+    istringstream ist(str);
+    cout << "\n\nResult: ";
+    while (ist >> str) {
+        if (word == str) {
+            cout << (str += "! ");
+        }
+        else cout << str << " ";
+    }
+    return 0;
+}

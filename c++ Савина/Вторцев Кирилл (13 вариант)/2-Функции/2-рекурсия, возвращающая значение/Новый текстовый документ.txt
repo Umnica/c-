@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+
+int digit_count(char* s){
+    return *s ? (isdigit(*s) != 0) + digit_count(s + 1) : 0;
+}
+
+int main(){
+    char s1[] = "123 saf 45 fea";
+    //char s1[20];
+    //cin.getline(s1,20);
+    char s2[] = "1sad 3";
+    if (digit_count(s1) > digit_count(s2))
+        cout << " In the firts " << endl;
+    else
+        if (digit_count(s1) == digit_count(s2))
+            cout << " Equally " << endl;
+        else
+            cout << " In the second " << endl;
+    return 0;
+}

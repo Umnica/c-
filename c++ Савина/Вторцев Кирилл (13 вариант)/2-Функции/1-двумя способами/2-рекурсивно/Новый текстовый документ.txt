@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+int sum = 0;
+int f(int N) {
+    if (N != 0) {
+        sum += N % 10;
+        N /= 10;
+        f2(N);
+    }
+    else
+        return sum;
+}
+int main() {
+    int a, b;
+    cout << "Enter a " << endl;
+    cin >> a;
+    cout << "Enter b " << endl;
+    cin >> b;
+    for (int i = a; i <= b; i++) {
+        cout << i << " = " << f(i) << endl;
+        sum = 0;
+    }
+}

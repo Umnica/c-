@@ -1,0 +1,66 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <math.h>
+
+using namespace std;
+// Открываем глобальные файловые потоки
+ifstream in("in_data.txt");
+ofstream out("out_data.txt");
+
+// Описание структуры
+struct AToy {
+	char ToyName[60];// Название игрушки
+	int ToyCost;// Стоимость игрушки
+	int N, M;// Возрастные ограничения игрушки
+	void print(); // Фунция для вывода информации в файл
+	void show(); // Фунция для вывода информации на экран
+};
+
+
+void AToy::show() {
+	cout << setw(25) << ToyName << setw(10) << ToyCost << setw(10) << N << setw(2) << M << endl;
+}
+
+
+void AToy::print() {
+	out << setw(25) << ToyName << setw(10) << ToyCost << setw(10) << N << setw(2) << M << endl;
+}
+
+
+int main() {
+	string word;
+	int ToyCount = 0;
+	int N_min, M_max;
+	// Получем строку с кол-вом игрушек
+	in >> ToyCount;
+
+	// Описываем массив структур
+	AToy* Toys = new AToy[ToyCount];
+	for (int i = 0; i < ToyCount; i++) {
+		in >> Toys[i].ToyName;
+		in >> Toys[i].ToyCost;
+		in >> Toys[i].N;
+		in >> Toys[i].M;
+		Toys[i].show(); 
+	}
+	cout << "Enter age limits for the toy: ";
+	cin >> N_min;
+	cin >> M_max;
+	for (int i = 0; i < ToyCount; i++) {
+		// Поиск структуры по не совпадению с возрастными ограничениями
+		if (Toys[i].N < N_min && Toys[i].M > M_max) {
+			for (int j = i; j < ToyCount - 1; j++) {
+				Toys[i] = Toys[i + 1];
+				ToyCount--;
+			}
+		}
+	}
+	for (int i = 0; i < ToyCount; i++) {
+		Toys[i].print();
+	}
+	delete[]Toys;
+	in.close();
+	out.close();
+	return 0;
+}

@@ -1,0 +1,41 @@
+/*Решить задачу используя структуру point хранения координат точки, заданных в плоскости.
+Найти точку, сумма расстояний от которой до остальных точек множества максисмальна.*/
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+#include <math.h>
+using namespace std;
+struct point {
+	int x, y, z;
+};
+int GetPoint(point*& pArrayPpoint, const char* FileName){
+	fstream File(FileName, ios::in);
+	int k;
+	File >> k;
+	pArrayPpoint = new point[k];
+	for (int i = 0; i < k; i++)	{
+		File >> pArrayPpoint[i].x >> pArrayPpoint[i].y >> pArrayPpoint[i].z;
+	}
+	return k;
+} 
+double Distance(point* pArrayPpoint, point pl, int k){
+	double SumDistance = 0;
+	for (int i = 0; i < k; i++) {
+		SumDistance += sqrt(pow((double)pl.x - pArrayPpoint[i].x, 2) + pow((double)pl.y - pArrayPpoint[i].y, 2) + pow((double)pl.z - pArrayPpoint[i].z, 2));
+	}
+		return SumDistance;
+}
+int main(){
+	int k;
+	point* p;
+	k = GetPoint(p, "Output.txt");
+	double MaxSumLong = 0, Dl;
+	for (int i = 0; i < k; i++){
+		Dl = Distance(p, p[i], k);
+		if (Dl > MaxSumLong)
+			MaxSumLong = Dl;
+	}
+	cout << "Max long " << MaxSumLong << endl;
+	return 0;
+}
